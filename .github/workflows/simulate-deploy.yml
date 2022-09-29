@@ -1,0 +1,13 @@
+name: Simulate Deploy
+on:
+  push:
+    tags:
+  workflow_dispatch:
+
+jobs:
+  simulate-deploy:
+    name: Simulate deploy
+    runs-on: ubuntu-latest
+    environment: 'staging'
+    steps:
+      - run: echo "Hello world"
