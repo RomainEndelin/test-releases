@@ -19,6 +19,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release_branches: 'public_release'
           pre_release_branches: 'main'
+          custom_release_rules: ''
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
         with:
