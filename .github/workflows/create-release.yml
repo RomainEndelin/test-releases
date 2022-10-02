@@ -24,5 +24,5 @@ jobs:
         with:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
-          prerelease: true
+          generateReleaseNotes: true
+          prerelease: ${{ contains(steps.tag_version.outputs.release_type, 'pre') }}
