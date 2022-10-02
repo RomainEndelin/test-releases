@@ -2,6 +2,7 @@ name: Simulate Deploy
 on:
   push:
     tags:
+      - 'v*'
   workflow_dispatch:
 
 jobs:
