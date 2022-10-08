@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - public_release
   workflow_dispatch:
 
 jobs:
@@ -17,9 +16,8 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          release_branches: 'public_release'
-          pre_release_branches: 'main'
-          append_to_pre_release_tag: ${{ github.ref == 'refs/heads/main' && 'beta' || '<branch>' }}
+          pre_release_branches: '.*' # Includes main
+          append_to_pre_release_tag: ${{ github.ref == 'refs/heads/main' && 'beta' || '<branch>' }} # main branch is `beta`, everything else isn't
           custom_release_rules: ''
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
