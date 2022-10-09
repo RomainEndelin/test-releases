@@ -1,14 +1,9 @@
-name: Create Release
+name: Create Pre-release
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
-    inputs:
-      bump:
-        type: choice
-        description: Release Bump
-        options: 
-        - patch
-        - minor
-        - major
 
 jobs:
   create-release:
@@ -21,11 +16,14 @@ jobs:
         uses: RomainEndelin/github-tag-action@v1.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          force_bump: ${{ inputs.bump }}
+          release_branches: 'ignore-all-branches'
+          pre_release_branches: '.*' # Includes main
+          append_to_pre_release_tag: ${{ github.ref == 'refs/heads/main' && 'beta' || '<branch>' }} # main branch is `beta`, everything else isn't
+          force_prerelease_bump: 'prerelease'
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           generateReleaseNotes: true
-          prerelease: false
+          prerelease: true
