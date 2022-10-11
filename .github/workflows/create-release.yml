@@ -21,6 +21,7 @@ jobs:
         uses: RomainEndelin/github-tag-action@v1.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          release_branches: '.*' # main, or any vX.Y.Z-beta.N tag
           force_bump: ${{ inputs.bump }}
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
